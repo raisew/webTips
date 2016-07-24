@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+
+		<script>
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					isIOS = navigator.userAgent.match(/iphone|ipod|ipad/gi),
+					dpr = isIOS ? Math.min(win.devicePixelRatio, 3) : 1,
+					dpr = window.top === window.self ? dpr : 1, //被iframe引用时，禁止缩放
+					dpr = 1, // 首页引用IFRAME，强制为1
+					scale = 1 / dpr,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+				docEl.dataset.dpr = win.devicePixelRatio;
+				if(navigator.userAgent.match(/iphone/gi) && screen.width == 375 && win.devicePixelRatio == 2) {
+					docEl.classList.add('iphone6')
+				}
+				if(navigator.userAgent.match(/iphone/gi) && screen.width == 414 && win.devicePixelRatio == 3) {
+					docEl.classList.add('iphone6p')
+				}
+				var metaEl = doc.createElement('meta');
+				metaEl.name = 'viewport';
+				metaEl.content = 'initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale;
+				docEl.firstElementChild.appendChild(metaEl);
+				var recalc = function() {
+					var width = docEl.clientWidth;
+					if(width / dpr > 640) {
+						width = 640 * dpr;
+					}
+					docEl.style.fontSize = 100 * (width / 640) + 'px';
+				};
+				recalc()
+				if(!doc.addEventListener) return;
+				win.addEventListener(resizeEvt, recalc, false);
+			})(document, window);
+		</script>
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="telephone=no" name="format-detection">
+		<meta name="wap-font-scale" content="no">
+		<title>WEB前端资源网-前端手机px、rem尺寸转换js代码演示案例</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<style>
+			html {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+			}
+			
+			body,
+			p,
+			ul,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				margin: 0;
+				padding: 0;
+				font-weight: normal
+			}
+			
+			body {
+				text-align: left;
+				background: #e6e6e6;
+				font-family: sans-serif;
+				width: 6.4rem;
+				margin: 0 auto;
+				overflow-x: hidden;
+				color: #2a2a2a
+			}
+			
+			@media screen and (max-width:321px) {
+				body {
+					font-size: 16px
+				}
+			}
+			
+			@media screen and (min-width:321px) and (max-width:400px) {
+				body {
+					font-size: 17px
+				}
+			}
+			
+			@media screen and (min-width:400px) {
+				body {
+					font-size: 19px
+				}
+			}
+			
+			li {
+				list-style: none
+			}
+			
+			input {
+				-webkit-appearance: none
+			}
+			
+			a,
+			a:visited {
+				text-decoration: none;
+				color: #2a2a2a
+			}
+			
+			.clearfix:after {
+				clear: both;
+				height: 0;
+				overflow: hidden;
+				display: block;
+				visibility: hidden;
+				content: "."
+			}
+			
+			.g-p20,
+			.index-p31 {
+				padding: 0 .2rem
+			}
+			
+			header,
+			footer {
+				height: .90rem;
+				color: #fff;
+				background-color: #df3031;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				overflow: hidden
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="
+    font-size: 0.24rem;
+    height: 1rem;
+    background-color: wheat;
+">如果</div>
+		<div style="font-size: 0.24rem;
+    height: .5rem;
+    background-color: red;
+">如果</div>
+
+	</body>
+
+</html>

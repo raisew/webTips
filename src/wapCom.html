@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>移动端代码</title>
+	</head>
+	<style>
+		body,
+		div,
+		ul,
+		li,
+		p,
+		span,
+		a,
+		h2,
+		h3,
+		pre,textarea {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			background-color: #e1e1e1;
+			font-family: "微软雅黑";
+		}
+		
+		a {
+			text-decoration: none;
+		}
+		
+		img {
+			border: none;
+		}
+		
+		ul,
+		li {
+			list-style-type: none;
+		}
+		
+		h2 {
+			padding: 10px 15px;
+			font-size: 30px;
+			color: #000;
+		}
+		
+		textarea {
+			width: 100%;
+			padding: 10px;
+			border: 1px #ddd solid;
+			overflow: auto;
+			overflow-x: hidden;
+			font-size: 16px;
+			color: #666;
+			resize: none;
+			font-family: "微软雅黑";
+		}
+		.size1{ height: 260px;}
+		.size2{ height: 600px;}
+		span.note {
+			font-size: 14px;
+			color: #999;
+		}
+		
+		.content {
+			width: 1000px;
+			overflow: hidden;
+			background-color: #fff;
+			margin: 20px auto;
+		}
+	</style>
+
+	<body>
+		<div class="content">
+			<h2>h5常用head代码</h2>
+			<textarea class="size1">
+				<html lang="zh-cmn-Hans"> //简体中文页面：html lang=zh-cmn-Hans 繁体中文页面：html lang=zh-cmn-Hant 英语页面：html lang=en
+				<meta charset="UTF-8">
+				<meta name="apple-mobile-web-app-capable" content="yes">
+				<meta name="apple-mobile-web-app-status-bar-style" content="black">
+				<meta content="telephone=no" name="format-detection">
+				<meta name="wap-font-scale" content="no">
+				<title>标题</title>
+				<meta name="keywords" content="">
+				<meta name="description" content="">
+			</textarea><br>
+			<h2>wap通过js控制rem单位改变根元素html的font-size</h2>
+			<textarea class="size2">
+				<script>
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					isIOS = navigator.userAgent.match(/iphone|ipod|ipad/gi),
+					dpr = isIOS ? Math.min(win.devicePixelRatio, 3) : 1,
+					dpr = window.top === window.self ? dpr : 1, //被iframe引用时，禁止缩放
+					dpr = 1, // 首页引用IFRAME，强制为1
+					scale = 1 / dpr,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+				docEl.dataset.dpr = win.devicePixelRatio;
+				if(navigator.userAgent.match(/iphone/gi) && screen.width == 375 && win.devicePixelRatio == 2) {
+					docEl.classList.add('iphone6')
+				}
+				if(navigator.userAgent.match(/iphone/gi) && screen.width == 414 && win.devicePixelRatio == 3) {
+					docEl.classList.add('iphone6p')
+				}
+				var metaEl = doc.createElement('meta');
+				metaEl.name = 'viewport';
+				metaEl.content = 'initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale;
+				docEl.firstElementChild.appendChild(metaEl);
+				var recalc = function() {
+					var width = docEl.clientWidth;
+					if(width / dpr > 640) {
+						width = 640 * dpr;
+					}
+					docEl.style.fontSize = 100 * (width / 640) + 'px';
+				};
+				recalc()
+				if(!doc.addEventListener) return;
+				win.addEventListener(resizeEvt, recalc, false);
+			})(document, window);
+		</script>
+			</textarea>
+
+		</div>
+	</body>
+
+</html>
